@@ -126,11 +126,12 @@ class New_Toplevel:
         self.badge_button.configure(width=87)
 
     def badgeur(self):
-        #global recording
-        #recording = True
+        global recording
+        recording = True
         if serial_port.isOpen():
             data = serial_port.readline()
-        list_data.append(data)
+        n = len(data) - 3
+        list_data.append(data[:n])
         list_data.append(self.prenom_entry.get())
         list_data.append(self.nom_entry.get())
         #print(list_data)
@@ -149,7 +150,7 @@ class MyThread(threading.Thread):
                 pass
 
 if __name__ == '__main__':
-    serial_port = Serial(port="COM17", baudrate=4800) # port à régler (/ttyUSBX(linux) ou COMX(windows) )
+    serial_port = Serial(port="COM19", baudrate=4800) # port à régler (/ttyUSBX(linux) ou COMX(windows) )
     file = open("./data/liste.csv",'wb')
     c = csv.writer(file)
     vp_start_gui()
